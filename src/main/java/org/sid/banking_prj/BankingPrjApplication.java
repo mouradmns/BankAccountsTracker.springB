@@ -1,5 +1,6 @@
 package org.sid.banking_prj;
 
+import org.sid.banking_prj.Dtos.CustomerDTO;
 import org.sid.banking_prj.Entities.*;
 import org.sid.banking_prj.Enums.AccountStatus;
 import org.sid.banking_prj.Enums.OperationType;
@@ -34,10 +35,10 @@ public class BankingPrjApplication {
 
                 Stream.of("hasan","mourad","adnane").forEach(name -> {
 
-                    Customer customer =new Customer();
-                    customer.setName(name);
-                    customer.setEmail(name + "@gmail.com");
-                    bankAccountService.saveCustomer(customer);
+                    CustomerDTO customerDTO =new CustomerDTO();
+                    customerDTO.setName(name);
+                    customerDTO.setEmail(name + "@gmail.com");
+                    bankAccountService.saveCustomer(customerDTO);
                 });
 
                 bankAccountService.listCustomers().forEach(customer -> {

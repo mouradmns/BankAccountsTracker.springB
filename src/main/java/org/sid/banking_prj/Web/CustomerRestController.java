@@ -5,9 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.sid.banking_prj.Dtos.CustomerDTO;
 import org.sid.banking_prj.Entities.Customer;
 import org.sid.banking_prj.Services.BankAccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.sid.banking_prj.exceptions.CustomerNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +22,37 @@ public class CustomerRestController {
             return bankAccountService.listCustomers();
         }
 
+        @GetMapping("/customers/{id}")
+        public CustomerDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
+
+                return bankAccountService.getCustomer(customerId);
+        }
+
+        @PostMapping("/customers")
+        public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+
+                bankAccountService.saveCustomer(customerDTO);
+
+                return customerDTO;
+        }
+
+
+        @PutMapping ("/customers/{customerId}")
+        public CustomerDTO updateCustomer(@PathVariable(name="customerId") Long customerId,@RequestBody  CustomerDTO customerDTO) throws CustomerNotFoundException {
+
+                bankAccountService.updateCustomer(customerDTO);
+
+                return customerDTO;
+        }
+
+
+        @DeleteMapping("/customers/{customerId}")
+        public void deleteCustomer(@PathVariable(name = "customerId") Long id){
+
+                bankAccountService.deleteCustomer(id);
+        }
+
+
+
 }
+
